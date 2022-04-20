@@ -4,7 +4,7 @@ name: Fetch latest train status
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '0 * * * *' # hourly https://crontab.guru/#0_*_*_*_* TODO: consider less frequent
+    - cron:  '0 0,4,8,12,16,20 * * *' # every four hours https://crontab.guru/#0_0,4,8,12,16,20_*_*_* TODO: consider less frequent
 
 jobs:
   update-ati-summaries:
