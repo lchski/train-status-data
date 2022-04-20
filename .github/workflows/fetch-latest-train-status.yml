@@ -1,0 +1,24 @@
+# Thanks to Simon Willison for the inspiration: https://simonwillison.net/2020/Oct/9/git-scraping/
+name: Fetch latest train status
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 * * * *' # hourly https://crontab.guru/#0_*_*_*_* TODO: consider less frequent
+
+jobs:
+  update-ati-summaries:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out this repo
+      uses: actions/checkout@v2
+    - name: Fetch latest summaries
+      run: . update_and_commit_all.sh
+    - name: Commit and push if changed
+      run: |-
+        git config user.name "Automated"
+        git config user.email "actions@users.noreply.github.com"
+        git add statuses/
+        timestamp=$(date -u)
+        git commit -m "Latest data: ${timestamp}" || exit 0
+        git push
