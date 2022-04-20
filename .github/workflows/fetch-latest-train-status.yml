@@ -13,7 +13,7 @@ jobs:
     - name: Check out this repo
       uses: actions/checkout@v2
     - name: Fetch latest summaries
-      run: . update_and_commit_all.sh
+      run: . fetch-latest-train-status.sh
     - name: Commit and push if changed
       run: |-
         git config user.name "Automated"
