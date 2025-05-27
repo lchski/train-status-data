@@ -3,10 +3,12 @@
     label $out |
     .train as $trainId |
     .times[] |
-        if .eta != "ARR" then break $out end | {
-            train: $trainId,
-            code,
-            scheduled,
-            actual: .estimated
-        }
-]
+        if .eta != "ARR" then break $out end | [
+            $trainId,
+            .code,
+            .scheduled,
+            .estimated
+        ]
+] |
+.[] |
+@tsv
