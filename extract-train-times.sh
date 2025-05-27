@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Initialize log file
+LOG_DIR="data/logs"
+
+timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+LOG_FILE="$LOG_DIR/$timestamp.txt"
+
 # Directory containing the downloaded JSON files
 DATA_DIR="statuses/json"
 
@@ -11,11 +17,9 @@ echo "train_id	station_code	time_scheduled	time_actual" > $TIMES_OUTPUT
 
 # Process each JSON file
 for file in $DATA_DIR/*.json; do
-    echo "Processing $file..."
-    
     # Skip empty or invalid files
     if [ ! -s "$file" ] || ! jq empty "$file" 2>/dev/null; then
-        echo "Skipping $file (empty or invalid JSON)"
+        echo "Skipping $file (empty or invalid JSON)" >> $LOG_FILE
         continue
     fi
     
