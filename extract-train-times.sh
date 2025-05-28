@@ -13,7 +13,7 @@ DATA_DIR="statuses/json"
 TIMES_OUTPUT="data/out/times.tsv"
 
 # Initialize TSV with pre-set columns
-echo "train_id	station_code	time_scheduled	time_actual" > $TIMES_OUTPUT
+echo "train_id	station_code	arrival_scheduled	arrival_actual" > $TIMES_OUTPUT
 
 # Process each JSON file
 for file in $DATA_DIR/*.json; do
