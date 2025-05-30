@@ -4,7 +4,7 @@
 LOG_DIR="data/logs"
 
 TIMESTAMP_START=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-LOG_FILE="$LOG_DIR/$TIMESTAMP_START.txt"
+LOG_FILE="$LOG_DIR/$TIMESTAMP_START-stations.txt"
 
 echo "Processing started at $TIMESTAMP_START"
 echo "Processing started at $TIMESTAMP_START" >> $LOG_FILE
@@ -13,11 +13,11 @@ echo "Processing started at $TIMESTAMP_START" >> $LOG_FILE
 DATA_DIR="statuses/json"
 
 # Output files
-TIMES_OUTPUT="data/out/times.tsv"
-TIMES_OUTPUT_UNIQ="data/out/times-uniq.tsv"
+STATIONS_OUTPUT="data/out/stations.tsv"
+STATIONS_OUTPUT_UNIQ="data/out/stations-uniq.tsv"
 
 # Initialize TSV with pre-set columns
-echo "train_id	station_code	arrival_scheduled	arrival_actual" > $TIMES_OUTPUT
+echo "station_code	station_name" > $STATIONS_OUTPUT
 
 # Process each JSON file
 for file in $DATA_DIR/*.json; do
@@ -28,19 +28,19 @@ for file in $DATA_DIR/*.json; do
     fi
     
     # Extract times data and combine with existing data
-    jq -r -f scripts/jq/extract-train-times.jq "$file" >> $TIMES_OUTPUT
+    jq -r -f scripts/jq/extract-stations.jq "$file" >> $STATIONS_OUTPUT
 done
 
 TIMESTAMP_EXTRACTION_END=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
 echo "Extraction complete at $TIMESTAMP_EXTRACTION_END"
 echo "Extraction complete at $TIMESTAMP_EXTRACTION_END" >> $LOG_FILE
-echo "Combined times data saved to $TIMES_OUTPUT"
+echo "Combined stations data saved to $STATIONS_OUTPUT"
 
-cat $TIMES_OUTPUT | awk 'NR<3{print $0;next}{print $0| "sort -r"}' | uniq > $TIMES_OUTPUT_UNIQ
+cat $STATIONS_OUTPUT | awk 'NR<3{print $0;next}{print $0| "sort -r"}' | uniq > $STATIONS_OUTPUT_UNIQ
 
 TIMESTAMP_UNIQ_END=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
 echo "Unique complete at $TIMESTAMP_UNIQ_END"
 echo "Unique complete at $TIMESTAMP_UNIQ_END" >> $LOG_FILE
-echo "Unique times data saved to $TIMES_OUTPUT"
+echo "Unique stations data saved to $STATIONS_OUTPUT_UNIQ"
