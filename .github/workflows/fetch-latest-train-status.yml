@@ -12,14 +12,8 @@ jobs:
     steps:
     - name: Check out this repo
       uses: actions/checkout@v2
-    - name: Set up Node
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16
-    - name: Pull Node packages
-      run: npm install
-    - name: Fetch latest status and convert to CSV
-      run: . fetch-and-convert-latest-train-status.sh
+    - name: Fetch latest status
+      run: . fetch-latest-train-status.sh
     - name: Commit and push if changed
       run: |-
         git config user.name "Automated"
