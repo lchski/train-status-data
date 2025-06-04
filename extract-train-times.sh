@@ -43,4 +43,4 @@ TIMESTAMP_UNIQ_END=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
 echo "Unique complete at $TIMESTAMP_UNIQ_END"
 echo "Unique complete at $TIMESTAMP_UNIQ_END" >> $LOG_FILE
-echo "Unique times data saved to $TIMES_OUTPUT"
+echo "Unique times data saved to $TIMES_OUTPUT_UNIQ"
