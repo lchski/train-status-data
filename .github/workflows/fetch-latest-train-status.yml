@@ -7,7 +7,7 @@ on:
     - cron:  '30 0/4 * * *' # every four hours https://crontab.guru/#30_0/4_*_*_* TODO: consider less frequent
 
 jobs:
-  update-ati-summaries:
+  fetch-latest-train-status:
     runs-on: ubuntu-latest
     steps:
     - name: Check out this repo
