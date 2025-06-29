@@ -5,7 +5,7 @@
     .times[] |
         if .eta != "ARR" then break $out end | [
             $trainId,
-            .code,
+            (if (.code // "") == "" then .station else .code end),
             .scheduled,
             .estimated
         ]
