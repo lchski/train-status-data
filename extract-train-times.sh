@@ -17,7 +17,7 @@ TIMES_OUTPUT="data/out/times.tsv"
 TIMES_OUTPUT_UNIQ="data/out/times-uniq.tsv"
 
 # Initialize TSV with pre-set columns
-echo "train_id	station_code	arrival_scheduled	arrival_actual" > $TIMES_OUTPUT
+echo "train_id	stop_code	arrival_scheduled	arrival_actual" > $TIMES_OUTPUT
 
 # Process each JSON file
 for file in $DATA_DIR/*.json; do
